@@ -34,12 +34,7 @@ const container = gallerySrc.map((image) => createGallery(image));
 galleryUl.append(...container);
 
 function onOpenModal(event) {
-  window.addEventListener("keydown", (event) => {
-    if (event.code === "Escape") {
-      console.log("object");
-      onCloseModal();
-    }
-  });
+  window.addEventListener("keydown", onPressEscape);
   if (event.target.nodeName !== "IMG") {
     return console.log("object");
   }
@@ -51,12 +46,19 @@ function onOpenModal(event) {
 }
 
 function onCloseModal() {
+  window.removeEventListener("keydown", onPressEscape);
   openModal.classList.remove("is-open");
   modalImgRef.src = "";
 }
 
 function divOffModal(event) {
   if (event.target === event.currentTarget) {
+    onCloseModal();
+  }
+}
+
+function onPressEscape(event) {
+  if (event.code === "Escape") {
     onCloseModal();
   }
 }
