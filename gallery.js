@@ -9,7 +9,6 @@ const divContentRef = document.querySelector(".lightbox__content");
 
 galleryUl.addEventListener("click", onOpenModal);
 btnRef.addEventListener("click", onCloseModal);
-
 divContentRef.addEventListener("click", divOffModal);
 
 const createGallery = (images) => {
@@ -17,7 +16,7 @@ const createGallery = (images) => {
   galleryLi.classList.add("gallery__item");
   const galleryLinc = document.createElement("a");
   galleryLinc.classList.add("gallery__linc");
-  galleryLinc.setAttribute("href", "#");
+  galleryLinc.setAttribute("href", images.original);
   const galleryImg = document.createElement("img");
   galleryImg.classList.add("gallery__image");
   galleryImg.setAttribute("src", images.preview);
@@ -34,12 +33,12 @@ const container = gallerySrc.map((image) => createGallery(image));
 galleryUl.append(...container);
 
 function onOpenModal(event) {
+  event.preventDefault();
   window.addEventListener("keydown", onPressEscape);
   if (event.target.nodeName !== "IMG") {
-    return console.log("object");
+    return;
   }
   const dataUrlImg = event.target.dataset.source;
-  console.log(dataUrlImg);
 
   openModal.classList.add("is-open");
   modalImgRef.src = dataUrlImg;
